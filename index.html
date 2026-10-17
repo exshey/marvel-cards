@@ -1,0 +1,2901 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Superhero English Quest - 3rd Grade English</title>
+    <meta name="description" content="Interactive English learning app for 3rd graders with Marvel superhero mentors, Quizlet-style flashcards, mini-games, and speech recognition." />
+    <meta property="og:title" content="Superhero English Quest - 3rd Grade English" />
+    <meta property="og:description" content="Interactive English learning app for 3rd graders with Marvel superhero mentors, Quizlet-style flashcards, mini-games, and speech recognition." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --pink-50: #fff1f5;
+        --pink-100: #ffe4ec;
+        --pink-200: #fecdd9;
+        --pink-300: #fba1b7;
+        --pink-400: #f47294;
+        --pink-500: #e83f6f;
+        --blue-50: #f0f9ff;
+        --blue-100: #e0f2fe;
+        --blue-200: #bae6fd;
+        --blue-300: #7dd3fc;
+        --blue-400: #38bdf8;
+        --blue-500: #0284c7;
+        --card-bg: #ffffff;
+        --text-main: #1e293b;
+        --text-muted: #64748b;
+        --border-soft: rgba(226, 232, 240, 0.9);
+        --shadow-sm: 0 2px 8px rgba(225, 29, 72, 0.05), 0 1px 3px rgba(2, 132, 199, 0.05);
+        --shadow-md: 0 8px 24px rgba(225, 29, 72, 0.07), 0 3px 8px rgba(2, 132, 199, 0.07);
+        --shadow-lg: 0 16px 36px rgba(225, 29, 72, 0.1), 0 6px 14px rgba(2, 132, 199, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        background: linear-gradient(135deg, #fff5f8 0%, #f0f7ff 50%, #fff1f5 100%);
+        color: var(--text-main);
+        min-height: 100vh;
+        line-height: 1.5;
+        overflow-x: hidden;
+      }
+
+      h1, h2, h3, .font-fun {
+        font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+      }
+
+      /* Container */
+      .app-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 16px 20px 48px;
+      }
+
+      /* Header */
+      .site-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--border-soft);
+        border-radius: 24px;
+        padding: 12px 24px;
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 24px;
+      }
+
+      .brand-zone {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+
+      .brand-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--pink-400), var(--blue-400));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        box-shadow: 0 4px 12px rgba(244, 114, 148, 0.3);
+      }
+
+      .brand-title {
+        font-size: 22px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #e83f6f 0%, #0284c7 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .brand-subtitle {
+        font-size: 12px;
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+
+      /* Top Stats & Controls */
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .hero-pill-badge {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--blue-50);
+        border: 1px solid var(--blue-200);
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--blue-500);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .hero-pill-badge:hover {
+        background: var(--blue-100);
+        transform: translateY(-1px);
+      }
+
+      .hero-pill-badge.pink {
+        background: var(--pink-50);
+        border-color: var(--pink-200);
+        color: var(--pink-500);
+      }
+      .hero-pill-badge.pink:hover {
+        background: var(--pink-100);
+      }
+
+      .icon-button {
+        background: white;
+        border: 1px solid var(--border-soft);
+        border-radius: 12px;
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        cursor: pointer;
+        color: var(--text-muted);
+        transition: all 0.2s ease;
+      }
+      .icon-button:hover {
+        color: var(--pink-500);
+        border-color: var(--pink-200);
+        background: var(--pink-50);
+      }
+
+      /* Navigation Tabs */
+      .nav-tabs {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 6px;
+        margin-bottom: 24px;
+        scrollbar-width: thin;
+      }
+
+      .tab-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid var(--border-soft);
+        border-radius: 16px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-muted);
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .tab-btn:hover {
+        color: var(--blue-500);
+        background: white;
+        border-color: var(--blue-200);
+      }
+
+      .tab-btn.active {
+        background: linear-gradient(135deg, var(--pink-400), var(--blue-400));
+        color: white;
+        border-color: transparent;
+        box-shadow: 0 4px 14px rgba(244, 114, 148, 0.3);
+      }
+
+      /* Superhero Mentor Banner */
+      .mentor-banner {
+        background: linear-gradient(135deg, #ffffff 0%, #fff0f5 50%, #f0f7ff 100%);
+        border: 2px solid var(--pink-200);
+        border-radius: 24px;
+        padding: 16px 20px;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        animation: pulseSubtle 4s infinite ease-in-out;
+      }
+
+      @keyframes pulseSubtle {
+        0%, 100% { border-color: var(--pink-200); }
+        50% { border-color: var(--blue-300); }
+      }
+
+      .mentor-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: white;
+        border: 3px solid var(--pink-300);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 34px;
+        flex-shrink: 0;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+      .mentor-avatar:hover {
+        transform: scale(1.08) rotate(5deg);
+      }
+
+      .mentor-speech {
+        flex: 1;
+      }
+      .mentor-name {
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--pink-500);
+        margin-bottom: 2px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .mentor-bubble {
+        font-size: 15px;
+        font-weight: 600;
+        color: #334155;
+      }
+      .mentor-actions {
+        display: flex;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+
+      .btn-hint {
+        background: #fef08a;
+        color: #854d0e;
+        border: 1px solid #fde047;
+        padding: 8px 14px;
+        border-radius: 12px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+      }
+      .btn-hint:hover {
+        background: #fde047;
+        transform: translateY(-1px);
+      }
+
+      /* Sections Layout */
+      .app-section {
+        display: none;
+        animation: fadeIn 0.25s ease-out forwards;
+      }
+      .app-section.active {
+        display: block;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(6px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Flashcard Section */
+      .flashcard-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        max-width: 680px;
+        margin: 0 auto;
+      }
+
+      .card-deck-controls {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-muted);
+      }
+
+      .category-selector {
+        background: white;
+        border: 1px solid var(--border-soft);
+        border-radius: 12px;
+        padding: 6px 12px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-main);
+        outline: none;
+      }
+
+      /* 3D Flip Card */
+      .flip-card-perspective {
+        perspective: 1200px;
+        width: 100%;
+        height: 340px;
+        cursor: pointer;
+      }
+
+      .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transform-style: preserve-3d;
+        border-radius: 28px;
+        box-shadow: var(--shadow-md);
+      }
+
+      .flip-card-inner.is-flipped {
+        transform: rotateY(180deg);
+      }
+
+      .flip-card-face {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        border-radius: 28px;
+        padding: 28px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .flip-card-front {
+        background: linear-gradient(145deg, #ffffff 0%, #fff5f8 100%);
+        border: 2px solid var(--pink-200);
+      }
+
+      .flip-card-back {
+        background: linear-gradient(145deg, #ffffff 0%, #f0f9ff 100%);
+        border: 2px solid var(--blue-200);
+        transform: rotateY(180deg);
+      }
+
+      .card-tag {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--pink-400);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .card-tag.blue {
+        color: var(--blue-400);
+      }
+
+      .word-main {
+        font-size: 42px;
+        font-weight: 700;
+        color: #1e293b;
+        margin-top: 10px;
+      }
+
+      .word-transcription {
+        font-size: 16px;
+        color: #64748b;
+        font-weight: 500;
+        margin-top: 4px;
+      }
+
+      .word-example {
+        font-size: 15px;
+        color: #475569;
+        font-style: italic;
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px dashed var(--pink-200);
+        border-radius: 14px;
+        padding: 10px 16px;
+        max-width: 90%;
+      }
+      .flip-card-back .word-example {
+        border-color: var(--blue-200);
+      }
+
+      .card-footer-tip {
+        font-size: 13px;
+        color: #94a3b8;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .audio-btn-large {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--blue-400), var(--blue-500));
+        color: white;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+        transition: all 0.2s ease;
+      }
+      .audio-btn-large:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(2, 132, 199, 0.4);
+      }
+
+      /* Card Carousel Navigation */
+      .carousel-nav {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .nav-arrow-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 16px;
+        background: white;
+        border: 1px solid var(--border-soft);
+        color: var(--text-main);
+        font-size: 20px;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: var(--shadow-sm);
+        transition: all 0.2s ease;
+      }
+      .nav-arrow-btn:hover:not(:disabled) {
+        border-color: var(--pink-300);
+        background: var(--pink-50);
+        color: var(--pink-500);
+        transform: translateY(-2px);
+      }
+      .nav-arrow-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      .study-actions {
+        display: flex;
+        gap: 12px;
+      }
+
+      .btn-pill-action {
+        padding: 10px 18px;
+        border-radius: 14px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid transparent;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+      }
+      .btn-pill-action.know {
+        background: #dcfce7;
+        color: #15803d;
+        border-color: #86efac;
+      }
+      .btn-pill-action.know:hover {
+        background: #bbf7d0;
+        transform: translateY(-1px);
+      }
+      .btn-pill-action.repeat {
+        background: #fee2e2;
+        color: #b91c1c;
+        border-color: #fca5a5;
+      }
+      .btn-pill-action.repeat:hover {
+        background: #fecaca;
+        transform: translateY(-1px);
+      }
+
+      /* Progress Bar */
+      .progress-container {
+        width: 100%;
+        background: #e2e8f0;
+        border-radius: 999px;
+        height: 8px;
+        overflow: hidden;
+      }
+      .progress-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--pink-400), var(--blue-400));
+        transition: width 0.3s ease;
+      }
+
+      /* Matching Game Section */
+      .matching-game-container {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .game-header-bar {
+        background: white;
+        border: 1px solid var(--border-soft);
+        border-radius: 20px;
+        padding: 14px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .game-stats {
+        display: flex;
+        gap: 20px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .tiles-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 14px;
+      }
+
+      .tile-card {
+        background: white;
+        border: 2px solid var(--border-soft);
+        border-radius: 20px;
+        padding: 22px 14px;
+        min-height: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: var(--shadow-sm);
+        transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        user-select: none;
+      }
+
+      .tile-card:hover:not(.matched):not(.selected) {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--blue-300);
+      }
+
+      .tile-card.lang-en {
+        color: #0369a1;
+      }
+      .tile-card.lang-ru {
+        color: #be185d;
+      }
+
+      .tile-card.selected.lang-en {
+        background: var(--blue-100);
+        border-color: var(--blue-500);
+        transform: scale(1.04);
+        box-shadow: 0 8px 18px rgba(2, 132, 199, 0.25);
+      }
+
+      .tile-card.selected.lang-ru {
+        background: var(--pink-100);
+        border-color: var(--pink-500);
+        transform: scale(1.04);
+        box-shadow: 0 8px 18px rgba(232, 63, 111, 0.25);
+      }
+
+      .tile-card.matched {
+        background: #dcfce7;
+        border-color: #4ade80;
+        color: #15803d;
+        transform: scale(0.96);
+        opacity: 0.6;
+        cursor: default;
+      }
+
+      .tile-card.wrong {
+        animation: shake 0.4s ease;
+        background: #fee2e2;
+        border-color: #f87171;
+        color: #b91c1c;
+      }
+
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-6px); }
+        50% { transform: translateX(6px); }
+        75% { transform: translateX(-4px); }
+      }
+
+      /* Sentence Builder Section */
+      .sentence-builder-container {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .builder-card {
+        background: white;
+        border: 2px solid var(--blue-100);
+        border-radius: 28px;
+        padding: 32px 24px;
+        box-shadow: var(--shadow-md);
+        text-align: center;
+      }
+
+      .builder-prompt {
+        font-size: 15px;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+        font-weight: 500;
+      }
+
+      .builder-ru-hint {
+        font-size: 18px;
+        color: var(--pink-500);
+        font-weight: 700;
+        margin-bottom: 24px;
+      }
+
+      .sentence-display-area {
+        font-size: 26px;
+        font-weight: 700;
+        color: #1e293b;
+        min-height: 70px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 16px;
+        background: var(--blue-50);
+        border: 2px dashed var(--blue-300);
+        border-radius: 20px;
+        margin-bottom: 24px;
+      }
+
+      .blank-target-slot {
+        min-width: 100px;
+        padding: 4px 16px;
+        background: white;
+        border: 2px solid var(--pink-400);
+        border-radius: 12px;
+        color: var(--pink-500);
+        text-align: center;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        min-height: 44px;
+      }
+
+      .word-bank-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .choice-chip {
+        background: white;
+        border: 2px solid var(--border-soft);
+        border-radius: 16px;
+        padding: 12px 22px;
+        font-size: 17px;
+        font-weight: 700;
+        color: #334155;
+        cursor: pointer;
+        box-shadow: var(--shadow-sm);
+        transition: all 0.2s ease;
+      }
+      .choice-chip:hover {
+        background: var(--pink-50);
+        border-color: var(--pink-300);
+        color: var(--pink-500);
+        transform: translateY(-2px);
+      }
+      .choice-chip.used {
+        opacity: 0.3;
+        pointer-events: none;
+      }
+
+      /* Tenses Trainer Section */
+      .tenses-container {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .tenses-filter-bar {
+        background: white;
+        border: 1px solid var(--border-soft);
+        border-radius: 24px;
+        padding: 16px;
+        box-shadow: var(--shadow-sm);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .tenses-toggle-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 10px;
+      }
+
+      .tense-checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #f8fafc;
+        border: 1px solid var(--border-soft);
+        border-radius: 14px;
+        padding: 10px 14px;
+        font-size: 13px;
+        font-weight: 700;
+        color: #475569;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .tense-checkbox-label:hover {
+        background: var(--blue-50);
+        border-color: var(--blue-200);
+      }
+      .tense-checkbox-label.active {
+        background: var(--blue-100);
+        border-color: var(--blue-400);
+        color: var(--blue-500);
+      }
+
+      .clue-indicator {
+        display: inline-block;
+        background: #fef08a;
+        color: #854d0e;
+        border: 1px solid #fde047;
+        padding: 2px 8px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .tense-rule-card {
+        background: linear-gradient(135deg, #ffffff 0%, #fff0f5 100%);
+        border: 1px solid var(--pink-200);
+        border-radius: 20px;
+        padding: 16px 20px;
+        font-size: 14px;
+        color: #475569;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .rule-badge {
+        background: var(--pink-500);
+        color: white;
+        font-weight: 700;
+        font-size: 11px;
+        padding: 4px 8px;
+        border-radius: 6px;
+        text-transform: uppercase;
+        flex-shrink: 0;
+      }
+
+      /* Pronunciation Section */
+      .pronounce-container {
+        max-width: 680px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        align-items: center;
+      }
+
+      .mic-card {
+        width: 100%;
+        background: white;
+        border: 2px solid var(--blue-100);
+        border-radius: 28px;
+        padding: 36px 24px;
+        text-align: center;
+        box-shadow: var(--shadow-md);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .target-pronounce-word {
+        font-size: 44px;
+        font-weight: 800;
+        color: #0f172a;
+      }
+
+      .target-pronounce-trans {
+        font-size: 20px;
+        color: var(--pink-500);
+        font-weight: 600;
+      }
+
+      .mic-big-button {
+        width: 88px;
+        height: 88px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--pink-400), var(--pink-500));
+        color: white;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        cursor: pointer;
+        box-shadow: 0 8px 24px rgba(232, 63, 111, 0.35);
+        transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      .mic-big-button:hover {
+        transform: scale(1.08);
+      }
+      .mic-big-button.listening {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        animation: pulseMic 1.2s infinite ease-in-out;
+      }
+
+      @keyframes pulseMic {
+        0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+        50% { transform: scale(1.1); box-shadow: 0 0 0 18px rgba(239, 68, 68, 0); }
+      }
+
+      .speech-result-box {
+        width: 100%;
+        background: #f8fafc;
+        border: 1px dashed var(--border-soft);
+        border-radius: 16px;
+        padding: 16px;
+        font-size: 15px;
+        color: #334155;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Word Manager Section */
+      .manager-container {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .panel-card {
+        background: white;
+        border: 1px solid var(--border-soft);
+        border-radius: 24px;
+        padding: 24px;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .form-grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+      @media (max-width: 600px) {
+        .form-grid-2 { grid-template-columns: 1fr; }
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1px solid var(--border-soft);
+        border-radius: 14px;
+        font-size: 14px;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s ease;
+      }
+      .input-field:focus {
+        border-color: var(--blue-400);
+        box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+      }
+
+      .textarea-field {
+        width: 100%;
+        height: 110px;
+        padding: 12px 16px;
+        border: 1px solid var(--border-soft);
+        border-radius: 14px;
+        font-size: 14px;
+        font-family: inherit;
+        outline: none;
+        resize: vertical;
+        margin-bottom: 16px;
+      }
+      .textarea-field:focus {
+        border-color: var(--pink-400);
+        box-shadow: 0 0 0 3px rgba(244, 114, 148, 0.15);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--pink-400), var(--blue-400));
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+        border: none;
+        border-radius: 14px;
+        padding: 12px 24px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 4px 14px rgba(244, 114, 148, 0.3);
+        transition: all 0.2s ease;
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(244, 114, 148, 0.4);
+      }
+
+      .btn-secondary {
+        background: #f1f5f9;
+        color: #475569;
+        font-weight: 600;
+        font-size: 14px;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 12px 20px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+      }
+      .btn-secondary:hover {
+        background: #e2e8f0;
+      }
+
+      /* Word List Table */
+      .word-list-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 16px;
+      }
+      .word-list-table th {
+        text-align: left;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        padding: 10px 14px;
+        border-bottom: 2px solid #f1f5f9;
+      }
+      .word-list-table td {
+        padding: 12px 14px;
+        border-bottom: 1px solid #f1f5f9;
+        font-size: 14px;
+      }
+      .btn-del-sm {
+        background: none;
+        border: none;
+        color: #94a3b8;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 6px;
+      }
+      .btn-del-sm:hover {
+        color: #ef4444;
+        background: #fee2e2;
+      }
+
+      /* Hero Selector Modal */
+      .modal-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.45);
+        backdrop-filter: blur(4px);
+        z-index: 999;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .modal-backdrop.open {
+        display: flex;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin: 20px 0;
+      }
+      .hero-choice-card {
+        background: #f8fafc;
+        border: 2px solid var(--border-soft);
+        border-radius: 20px;
+        padding: 16px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .hero-choice-card:hover {
+        border-color: var(--pink-400);
+        background: var(--pink-50);
+        transform: translateY(-2px);
+      }
+      .hero-choice-card.active {
+        border-color: var(--blue-500);
+        background: var(--blue-50);
+        box-shadow: 0 4px 14px rgba(2, 132, 199, 0.2);
+      }
+      .hero-icon-large {
+        font-size: 40px;
+        margin-bottom: 6px;
+      }
+      .hero-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #1e293b;
+      }
+      .hero-desc {
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      /* Toast Notifications */
+      .toast-msg {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: #1e293b;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 14px;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        z-index: 1000;
+        display: none;
+        align-items: center;
+        gap: 10px;
+        animation: toastIn 0.3s ease;
+      }
+      @keyframes toastIn {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Header -->
+      <header class="site-header">
+        <a href="#" class="brand-zone" onclick="switchTab('cards'); return false;">
+          <div class="brand-icon">⚡</div>
+          <div>
+            <div class="brand-title">Superhero English Quest</div>
+            <div class="brand-subtitle">3rd Grade Power English · English Learning for Heroes</div>
+          </div>
+        </a>
+
+        <div class="header-actions">
+          <div class="hero-pill-badge" id="heroBadgeBtn" title="Click to change your superhero mentor!">
+            <span id="currentHeroIcon">🕷️</span>
+            <span id="currentHeroName">Spider-Man</span>
+          </div>
+
+          <div class="hero-pill-badge pink" id="xpBadge">
+            <span>⭐</span>
+            <span id="xpScore">0 XP</span>
+          </div>
+
+          <button class="icon-button" id="soundToggleBtn" title="Toggle Sound FX">🔊</button>
+          <button class="icon-button" id="exportBtn" title="Download Standalone index.html">📥</button>
+        </div>
+      </header>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-tabs" role="tablist">
+        <button class="tab-btn active" data-tab="cards">
+          <span>🃏</span> Vocabulary Flashcards
+        </button>
+        <button class="tab-btn" data-tab="matching">
+          <span>🧩</span> Соедини пары (Match)
+        </button>
+        <button class="tab-btn" data-tab="builder">
+          <span>✏️</span> Sentence Builder
+        </button>
+        <button class="tab-btn" data-tab="tenses">
+          <span>⏳</span> English Tenses
+        </button>
+        <button class="tab-btn" data-tab="pronounce">
+          <span>🎙️</span> Pronunciation Lab
+        </button>
+        <button class="tab-btn" data-tab="manager">
+          <span>📚</span> Word Manager & Paste
+        </button>
+      </nav>
+
+      <!-- Superhero Assistant Banner -->
+      <div class="mentor-banner">
+        <div class="mentor-avatar" id="mentorAvatarIcon" title="Click to change mentor">🕷️</div>
+        <div class="mentor-speech">
+          <div class="mentor-name">
+            <span id="mentorBannerName">Spider-Man</span>
+            <span style="font-weight: normal; color: #94a3b8; font-size: 11px;">· Your Super Mentor</span>
+          </div>
+          <div class="mentor-bubble" id="mentorMessageText">
+            "Welcome, hero! Ready to boost your English super-powers today? Choose a mission above!"
+          </div>
+        </div>
+        <div class="mentor-actions">
+          <button class="btn-hint" id="heroHintBtn">
+            <span>💡</span> Hint
+          </button>
+        </div>
+      </div>
+
+      <!-- SECTION 1: FLASHCARDS (QUIZLET STYLE) -->
+      <section id="section-cards" class="app-section active">
+        <div class="flashcard-wrapper">
+          <div class="card-deck-controls">
+            <div>
+              <label for="cardCategoryFilter" style="margin-right: 6px;">Topic:</label>
+              <select id="cardCategoryFilter" class="category-selector">
+                <option value="all">All Topics (Все темы)</option>
+                <option value="animals">🐾 Animals (Животные)</option>
+                <option value="school">🎒 School (Школа)</option>
+                <option value="family">👨‍👩‍👧 Family (Семья)</option>
+                <option value="actions">⚡ Actions & Verbs (Глаголы)</option>
+                <option value="food">🍎 Food & Treats (Еда)</option>
+                <option value="custom">✨ Custom Added (Мои слова)</option>
+              </select>
+            </div>
+            <div>
+              <span id="cardCounter">Card 1 / 10</span>
+            </div>
+          </div>
+
+          <div class="progress-container">
+            <div id="deckProgressBar" class="progress-bar-fill" style="width: 10%;"></div>
+          </div>
+
+          <!-- Flip Card -->
+          <div class="flip-card-perspective" id="flipCardBox">
+            <div class="flip-card-inner" id="flipCardInner">
+              <!-- Front (English) -->
+              <div class="flip-card-face flip-card-front">
+                <div class="card-tag" id="cardTopicTag">🐾 Animals</div>
+                
+                <div>
+                  <div class="word-main" id="frontWordEn">Spider</div>
+                  <div class="word-transcription" id="frontTranscription">/ˈspaɪ.dər/</div>
+                </div>
+
+                <button class="audio-btn-large" id="playAudioBtn" title="Listen to pronunciation">
+                  🔊
+                </button>
+
+                <div class="word-example" id="frontExampleEn">
+                  "The spider spins a big web."
+                </div>
+
+                <div class="card-footer-tip">
+                  <span>👆 Click or press Space to flip</span>
+                </div>
+              </div>
+
+              <!-- Back (Russian Translation) -->
+              <div class="flip-card-face flip-card-back">
+                <div class="card-tag blue">🇷🇺 Русский перевод</div>
+
+                <div>
+                  <div class="word-main" style="color: #0369a1;" id="backWordRu">Паук</div>
+                  <div class="word-transcription" id="backDetails">Существительное (Noun)</div>
+                </div>
+
+                <div class="word-example" id="backExampleRu">
+                  "Паук плетет большую паутину."
+                </div>
+
+                <div class="card-footer-tip">
+                  <span>👆 Click to flip back to English</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Carousel Controls -->
+          <div class="carousel-nav">
+            <button class="nav-arrow-btn" id="prevCardBtn" title="Previous card">←</button>
+            <div class="study-actions">
+              <button class="btn-pill-action repeat" id="cardRepeatBtn">
+                <span>🔄</span> Need Practice
+              </button>
+              <button class="btn-pill-action know" id="cardKnowBtn">
+                <span>⭐</span> I Know This!
+              </button>
+            </div>
+            <button class="nav-arrow-btn" id="nextCardBtn" title="Next card">→</button>
+          </div>
+
+          <div style="display: flex; gap: 12px; margin-top: 8px;">
+            <button class="btn-secondary" id="shuffleDeckBtn" style="font-size: 13px; padding: 6px 14px;">
+              🔀 Shuffle Cards
+            </button>
+            <button class="btn-secondary" id="resetProgressBtn" style="font-size: 13px; padding: 6px 14px;">
+              ♻️ Reset Mastery
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: MATCHING GAME ("СОЕДИНИ ПАРЫ") -->
+      <section id="section-matching" class="app-section">
+        <div class="matching-game-container">
+          <div class="game-header-bar">
+            <div class="game-stats">
+              <div>🎯 Round: <span id="matchRoundNum" style="color: var(--blue-500)">1</span></div>
+              <div>✨ Matched: <span id="matchScoreDisplay">0 / 6</span></div>
+              <div>⚡ Streak: <span id="matchStreakDisplay" style="color: var(--pink-500)">0</span></div>
+            </div>
+            <div>
+              <button class="btn-secondary" id="restartMatchRoundBtn" style="padding: 6px 14px; font-size: 13px;">
+                🔄 New Board
+              </button>
+            </div>
+          </div>
+
+          <div style="text-align: center; color: var(--text-muted); font-size: 14px;">
+            Tap an <b style="color: #0369a1;">English word</b> and its <b style="color: #be185d;">Russian translation</b> to connect the pair!
+          </div>
+
+          <div class="tiles-grid" id="matchingTilesGrid">
+            <!-- Tiles dynamically injected here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: DYNAMIC SENTENCE BUILDER -->
+      <section id="section-builder" class="app-section">
+        <div class="sentence-builder-container">
+          <div class="builder-card">
+            <div class="builder-prompt">Fill in the blank with the correct word:</div>
+            <div class="builder-ru-hint" id="builderRuSentence">"Железный человек летает очень быстро."</div>
+
+            <div class="sentence-display-area" id="builderSentenceBox">
+              <!-- Dynamically populated sentence with blank target -->
+            </div>
+
+            <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 6px;">
+              Choose the word to complete the hero sentence:
+            </div>
+
+            <div class="word-bank-chips" id="builderChoicesGrid">
+              <!-- Choice buttons here -->
+            </div>
+
+            <div style="margin-top: 28px; display: flex; justify-content: center; gap: 12px;">
+              <button class="btn-primary" id="builderNextBtn" style="display: none;">
+                Next Sentence →
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: ENGLISH TENSES TRAINER -->
+      <section id="section-tenses" class="app-section">
+        <div class="tenses-container">
+          <div class="tenses-filter-bar">
+            <div style="font-weight: 700; font-size: 15px; color: #1e293b;">
+              🎯 Choose Which Tenses to Train (Выбери времена для тренировки):
+            </div>
+            <div class="tenses-toggle-grid">
+              <label class="tense-checkbox-label active" data-tense="present_simple">
+                <input type="checkbox" id="tenseCheckPS" checked style="accent-color: var(--blue-500);" />
+                <span>Present Simple (Каждый день)</span>
+              </label>
+
+              <label class="tense-checkbox-label active" data-tense="present_continuous">
+                <input type="checkbox" id="tenseCheckPC" checked style="accent-color: var(--blue-500);" />
+                <span>Present Continuous (Прямо сейчас)</span>
+              </label>
+
+              <label class="tense-checkbox-label active" data-tense="past_simple">
+                <input type="checkbox" id="tenseCheckPastS" checked style="accent-color: var(--blue-500);" />
+                <span>Past Simple (Вчера / прошлое)</span>
+              </label>
+
+              <label class="tense-checkbox-label active" data-tense="past_continuous">
+                <input type="checkbox" id="tenseCheckPastC" checked style="accent-color: var(--blue-500);" />
+                <span>Past Continuous (В процессе в прошлом)</span>
+              </label>
+            </div>
+
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button class="btn-secondary" id="presetStrictPS" style="padding: 4px 10px; font-size: 12px;">Только Present Simple</button>
+              <button class="btn-secondary" id="presetSimpleVsCont" style="padding: 4px 10px; font-size: 12px;">Present Simple vs Continuous</button>
+              <button class="btn-secondary" id="presetPastVsPastCont" style="padding: 4px 10px; font-size: 12px;">Past Simple vs Continuous</button>
+              <button class="btn-secondary" id="presetAllFour" style="padding: 4px 10px; font-size: 12px;">Mix All 4 Tenses (Все 4)</button>
+            </div>
+          </div>
+
+          <!-- Tense Clue & Formula Card -->
+          <div class="tense-rule-card" id="tenseRuleInfoBox">
+            <div class="rule-badge" id="ruleBadgeName">Tense Clue</div>
+            <div id="ruleTextContent">
+              Pay close attention to time indicator words like <span class="clue-indicator">every day</span>, <span class="clue-indicator">now</span>, <span class="clue-indicator">yesterday</span>, or <span class="clue-indicator">at 5 PM yesterday</span>!
+            </div>
+          </div>
+
+          <!-- Interactive Tense Question Card -->
+          <div class="builder-card" style="border-color: var(--pink-200);">
+            <div class="builder-prompt" id="tenseTaskPrompt">Complete the sentence in the correct tense:</div>
+            
+            <div class="sentence-display-area" id="tenseQuestionSentence">
+              <!-- Injected sentence -->
+            </div>
+
+            <div class="word-bank-chips" id="tenseAnswerOptions">
+              <!-- Option buttons -->
+            </div>
+
+            <div id="tenseExplanationBox" style="display: none; margin-top: 18px; padding: 12px 18px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 14px; font-size: 14px; color: #166534; font-weight: 600;">
+              <!-- Explanation -->
+            </div>
+
+            <div style="margin-top: 24px;">
+              <button class="btn-primary" id="tenseNextQuestionBtn" style="display: none;">
+                Next Tense Challenge →
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: PRONUNCIATION LAB -->
+      <section id="section-pronounce" class="app-section">
+        <div class="pronounce-container">
+          <div class="mic-card">
+            <div style="font-size: 13px; font-weight: 700; color: var(--blue-500); text-transform: uppercase;">
+              🎙️ Speak like a Superhero!
+            </div>
+
+            <div>
+              <div class="target-pronounce-word" id="pronounceTargetEn">Spider-Man</div>
+              <div class="target-pronounce-trans" id="pronounceTargetRu">Человек-паук</div>
+            </div>
+
+            <button class="audio-btn-large" id="pronounceListenSampleBtn" title="Hear proper native pronunciation">
+              🔊
+            </button>
+            <div style="font-size: 12px; color: var(--text-muted);">Listen to native sample first</div>
+
+            <button class="mic-big-button" id="startMicBtn" title="Press to speak aloud">
+              🎤
+            </button>
+            <div id="micStatusText" style="font-size: 14px; font-weight: 600; color: var(--text-muted);">
+              Click microphone and say the word aloud!
+            </div>
+
+            <div class="speech-result-box" id="speechResultBox">
+              Ready to record...
+            </div>
+
+            <div style="display: flex; gap: 12px; margin-top: 10px;">
+              <button class="btn-secondary" id="prevPronounceWordBtn">← Previous Word</button>
+              <button class="btn-primary" id="nextPronounceWordBtn">Next Word →</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 6: WORD MANAGER & PASTE IMPORT -->
+      <section id="section-manager" class="app-section">
+        <div class="manager-container">
+          <!-- Add Word Form -->
+          <div class="panel-card">
+            <h3 style="font-size: 18px; margin-bottom: 12px; color: #1e293b;">
+              ➕ Add Single Word Pair (Добавить новое слово)
+            </h3>
+            <div class="form-grid-2">
+              <input type="text" id="newWordEn" class="input-field" placeholder="English Word (e.g. Shield)" />
+              <input type="text" id="newWordRu" class="input-field" placeholder="Russian Translation (e.g. Щит)" />
+            </div>
+            <div class="form-grid-2">
+              <input type="text" id="newWordExample" class="input-field" placeholder="Example sentence (e.g. Captain America has a shield)" />
+              <select id="newWordCategory" class="input-field">
+                <option value="custom">✨ Custom Added</option>
+                <option value="animals">🐾 Animals</option>
+                <option value="school">🎒 School</option>
+                <option value="family">👨‍👩‍👧 Family</option>
+                <option value="actions">⚡ Actions</option>
+                <option value="food">🍎 Food</option>
+              </select>
+            </div>
+            <button class="btn-primary" id="addWordSubmitBtn">
+              Save Word Pair
+            </button>
+          </div>
+
+          <!-- Paste Raw Text & File Upload -->
+          <div class="panel-card">
+            <h3 style="font-size: 18px; margin-bottom: 8px; color: #1e293b;">
+              📋 Paste or Upload Word List (Вставить списком)
+            </h3>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+              Paste pairs separated by dash (-), colon (:), tab, or comma. For example:<br>
+              <code>cat - кот</code><br>
+              <code>dog - собака</code><br>
+              <code>friend - друг</code>
+            </p>
+            <textarea id="rawWordPasteArea" class="textarea-field" placeholder="dog - собака&#10;friend - друг&#10;school - школа"></textarea>
+            
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+              <button class="btn-primary" id="parseRawWordsBtn">
+                Parse & Add All Words
+              </button>
+              <label class="btn-secondary" style="cursor: pointer;">
+                📁 Upload .txt File
+                <input type="file" id="wordListFileInput" accept=".txt,.csv" style="display: none;" />
+              </label>
+              <button class="btn-secondary" id="exportWordsJsonBtn">
+                💾 Export Words (JSON)
+              </button>
+            </div>
+          </div>
+
+          <!-- Word Table -->
+          <div class="panel-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <h3 style="font-size: 18px; color: #1e293b;">
+                📖 Your Vocabulary Library (<span id="totalWordCount">0</span> words)
+              </h3>
+              <button class="btn-secondary" id="restoreDefaultWordsBtn" style="font-size: 12px; padding: 6px 12px; color: #b91c1c;">
+                Reset to Default Words
+              </button>
+            </div>
+
+            <div style="overflow-x: auto;">
+              <table class="word-list-table">
+                <thead>
+                  <tr>
+                    <th>English</th>
+                    <th>Russian</th>
+                    <th>Category</th>
+                    <th>Mastery</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="wordListTableBody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Hero Selector Modal -->
+    <div class="modal-backdrop" id="heroModal">
+      <div class="panel-card" style="max-width: 480px; width: 100%;">
+        <h3 style="font-size: 20px; color: #1e293b; text-align: center;">
+          Choose Your Superhero Mentor!
+        </h3>
+        <p style="font-size: 13px; color: var(--text-muted); text-align: center; margin-top: 4px;">
+          Your hero will cheer you on and guide you with hints!
+        </p>
+
+        <div class="hero-grid">
+          <div class="hero-choice-card active" data-hero="spiderman">
+            <div class="hero-icon-large">🕷️</div>
+            <div class="hero-title">Spider-Man</div>
+            <div class="hero-desc">Friendly & Quick-witted</div>
+          </div>
+          <div class="hero-choice-card" data-hero="ironman">
+            <div class="hero-icon-large">🦾</div>
+            <div class="hero-title">Iron Man</div>
+            <div class="hero-desc">Genius & Tech Power</div>
+          </div>
+          <div class="hero-choice-card" data-hero="thor">
+            <div class="hero-icon-large">⚡</div>
+            <div class="hero-title">Thor</div>
+            <div class="hero-desc">Mighty God of Thunder</div>
+          </div>
+          <div class="hero-choice-card" data-hero="cap">
+            <div class="hero-icon-large">🛡️</div>
+            <div class="hero-title">Captain America</div>
+            <div class="hero-desc">Brave Leader & Guide</div>
+          </div>
+        </div>
+
+        <button class="btn-primary" id="closeHeroModalBtn" style="width: 100%; justify-content: center;">
+          Ready to Learn!
+        </button>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-msg" id="toastMessage">
+      <span id="toastIcon">✨</span>
+      <span id="toastText">Action completed!</span>
+    </div>
+
+    <!-- MAIN JAVASCRIPT APPLICATION -->
+    <script>
+      (function() {
+        // --- 1. DEFAULT VOCABULARY & STATE ---
+        const DEFAULT_WORDS = [
+          { id: 'w1', en: 'Spider', ru: 'Паук', transcription: '/ˈspaɪ.dər/', category: 'animals', exampleEn: 'The spider spins a web.', exampleRu: 'Паук плетет паутину.', mastered: false },
+          { id: 'w2', en: 'Shield', ru: 'Щит', transcription: '/ʃiːld/', category: 'actions', exampleEn: 'Captain America holds a vibranium shield.', exampleRu: 'У Капитана Америки есть щит из вибраниума.', mastered: false },
+          { id: 'w3', en: 'Thunder', ru: 'Гром', transcription: '/ˈθʌn.dər/', category: 'nature', exampleEn: 'Thor brings thunder and lightning.', exampleRu: 'Тор приносит гром и молнию.', mastered: false },
+          { id: 'w4', en: 'Suit', ru: 'Костюм', transcription: '/suːt/', category: 'school', exampleEn: 'Tony Stark built a high-tech suit.', exampleRu: 'Тони Старк создал высокотехнологичный костюм.', mastered: false },
+          { id: 'w5', en: 'Friend', ru: 'Друг', transcription: '/frend/', category: 'family', exampleEn: 'Peter Parker is a good friend.', exampleRu: 'Питер Паркер — хороший друг.', mastered: false },
+          { id: 'w6', en: 'Book', ru: 'Книга', transcription: '/bʊk/', category: 'school', exampleEn: 'I read an English book every evening.', exampleRu: 'Я читаю английскую книгу каждый вечер.', mastered: false },
+          { id: 'w7', en: 'Pencil', ru: 'Карандаш', transcription: '/ˈpen.səl/', category: 'school', exampleEn: 'She has a blue pencil in her bag.', exampleRu: 'У нее в сумке есть синий карандаш.', mastered: false },
+          { id: 'w8', en: 'Teacher', ru: 'Учитель', transcription: '/ˈtiː.tʃər/', category: 'school', exampleEn: 'Our teacher explains new grammar rules.', exampleRu: 'Наш учитель объясняет новые правила грамматики.', mastered: false },
+          { id: 'w9', en: 'Sister', ru: 'Сестра', transcription: '/ˈsɪs.tər/', category: 'family', exampleEn: 'My little sister plays with toys.', exampleRu: 'Моя младшая сестра играет с игрушками.', mastered: false },
+          { id: 'w10', en: 'Brother', ru: 'Брат', transcription: '/ˈbrʌð.ər/', category: 'family', exampleEn: 'My brother loves superhero comics.', exampleRu: 'Мой брат любит комиксы о супергероях.', mastered: false },
+          { id: 'w11', en: 'Apple', ru: 'Яблоко', transcription: '/ˈæp.əl/', category: 'food', exampleEn: 'I eat a sweet red apple every day.', exampleRu: 'Я ем сладкое красное яблоко каждый день.', mastered: false },
+          { id: 'w12', en: 'Breakfast', ru: 'Завтрак', transcription: '/ˈbrek.fəst/', category: 'food', exampleEn: 'We have breakfast at 8 o’clock.', exampleRu: 'Мы завтракаем в 8 часов.', mastered: false },
+          { id: 'w13', en: 'Run', ru: 'Бежать', transcription: '/rʌn/', category: 'actions', exampleEn: 'Superheroes run fast to save the day.', exampleRu: 'Супергерои быстро бегают, чтобы спасти день.', mastered: false },
+          { id: 'w14', en: 'Fly', ru: 'Летать', transcription: '/flaɪ/', category: 'actions', exampleEn: 'Iron Man can fly across the sky.', exampleRu: 'Железный Человек умеет летать по небу.', mastered: false },
+          { id: 'w15', en: 'Climb', ru: 'Лазать / карабкаться', transcription: '/klaɪm/', category: 'actions', exampleEn: 'Spider-Man can climb high walls.', exampleRu: 'Человек-паук умеет карабкаться по высоким стенам.', mastered: false },
+          { id: 'w16', en: 'Dog', ru: 'Собака', transcription: '/dɒɡ/', category: 'animals', exampleEn: 'The friendly dog barks happily.', exampleRu: 'Дружелюбная собака радостно лает.', mastered: false },
+          { id: 'w17', en: 'Cat', ru: 'Кошка / кот', transcription: '/kæt/', category: 'animals', exampleEn: 'A warm cat is sleeping on the sofa.', exampleRu: 'Теплый кот спит на диване.', mastered: false },
+          { id: 'w18', en: 'Hammer', ru: 'Молот', transcription: '/ˈhæm.ər/', category: 'actions', exampleEn: 'Thor summons his magic hammer.', exampleRu: 'Тор призывает свой волшебный молот.', mastered: false },
+          { id: 'w19', en: 'Jump', ru: 'Прыгать', transcription: '/dʒʌmp/', category: 'actions', exampleEn: 'Can you jump very high?', exampleRu: 'Ты умеешь прыгать очень высоко?', mastered: false },
+          { id: 'w20', en: 'Water', ru: 'Вода', transcription: '/ˈwɔː.tər/', category: 'food', exampleEn: 'Drink fresh water every morning.', exampleRu: 'Пейте свежую воду каждое утро.', mastered: false }
+        ];
+
+        const HEROES = {
+          spiderman: {
+            name: 'Spider-Man',
+            icon: '🕷️',
+            praise: [
+              'Awesome job, web-slinger!',
+              'Your spider-sense is sharp today!',
+              'Spectacular answer! Queens is proud of you!',
+              'Thwip! Nailed it on the first try!',
+              'You are swinging through these words like a pro!'
+            ],
+            hints: [
+              'Listen to the vowels carefully! Spider-sense says break it into syllables.',
+              'Check the time clues! Words like "now" mean it is happening right this second!',
+              'Look at the action: is it a habit or happening right now?'
+            ]
+          },
+          ironman: {
+            name: 'Iron Man',
+            icon: '🦾',
+            praise: [
+              'Genius-level answer, cadet!',
+              'Jarvis calculates 100% accuracy!',
+              'Arc reactor power at maximum! Outstanding!',
+              'Tony Stark approves this high-tech brilliance!',
+              'Precision engineering at its finest!'
+            ],
+            hints: [
+              'Jarvis diagnostic: Look for "-ing" when something is continuous!',
+              'System analysis: If it happened yesterday, check for past verb forms (V2 / -ed).',
+              'Energy efficiency tip: Match the root word with its direct meaning.'
+            ]
+          },
+          thor: {
+            name: 'Thor',
+            icon: '⚡',
+            praise: [
+              'By Odin\'s beard, a thunderous victory!',
+              'Your English power strikes like lightning!',
+              'Mighty! The halls of Asgard sing your glory!',
+              'A warrior of words! Truly worthy!',
+              'Splendid answer, young hero!'
+            ],
+            hints: [
+              'Let the thunder guide your tongue! Speak with courage and clarity!',
+              'Look closely at the clue: "every day" is a steady habit like the rising sun!',
+              'In the past, regular heroes add "-ed" to their deeds!'
+            ]
+          },
+          cap: {
+            name: 'Captain America',
+            icon: '🛡️',
+            praise: [
+              'Outstanding discipline, soldier!',
+              'I can do this all day, and so can you!',
+              'Teamwork and practice make true heroes!',
+              'Courage and smarts—that is the Avenger way!',
+              'Top-tier effort! Keep charging forward!'
+            ],
+            hints: [
+              'Stay focused, cadet! Double-check the subject: "He" or "She" needs "-s" in Present Simple!',
+              'Notice the visual clue banner—it points straight to victory.',
+              'Take a breath and pronounce each letter with confidence.'
+            ]
+          }
+        };
+
+        // --- LOCAL STORAGE HELPERS ---
+        function loadWords() {
+          try {
+            const raw = localStorage.getItem('hero_eng_words');
+            if (raw) return JSON.parse(raw);
+          } catch(e) { console.warn(e); }
+          return DEFAULT_WORDS;
+        }
+
+        function saveWords(words) {
+          try {
+            localStorage.setItem('hero_eng_words', JSON.stringify(words));
+          } catch(e) { console.warn(e); }
+        }
+
+        function loadXP() {
+          return parseInt(localStorage.getItem('hero_eng_xp') || '0', 10);
+        }
+
+        function addXP(amount) {
+          const newXP = loadXP() + amount;
+          localStorage.setItem('hero_eng_xp', newXP.toString());
+          renderXP();
+          soundPlay('coin');
+          showToast(`+${amount} XP! ⭐`);
+          triggerHeroPraise();
+        }
+
+        function renderXP() {
+          const xp = loadXP();
+          const xpEl = document.getElementById('xpScore');
+          if (xpEl) xpEl.textContent = `${xp} XP`;
+        }
+
+        function loadSelectedHero() {
+          return localStorage.getItem('hero_eng_mentor') || 'spiderman';
+        }
+
+        function setSelectedHero(heroKey) {
+          localStorage.setItem('hero_eng_mentor', heroKey);
+          updateHeroUI();
+        }
+
+        // --- SOUND EFFECTS (Web Audio API Synthesizer - Zero External Files) ---
+        let soundEnabled = true;
+        const audioCtx = (window.AudioContext || window.webkitAudioContext) ? new (window.AudioContext || window.webkitAudioContext)() : null;
+
+        function soundPlay(type) {
+          if (!soundEnabled || !audioCtx) return;
+          try {
+            if (audioCtx.state === 'suspended') {
+              audioCtx.resume();
+            }
+            const now = audioCtx.currentTime;
+
+            if (type === 'flip') {
+              const osc = audioCtx.createOscillator();
+              const gain = audioCtx.createGain();
+              osc.type = 'triangle';
+              osc.frequency.setValueAtTime(320, now);
+              osc.frequency.exponentialRampToValueAtTime(120, now + 0.12);
+              gain.gain.setValueAtTime(0.15, now);
+              gain.gain.linearRampToValueAtTime(0.01, now + 0.12);
+              osc.connect(gain);
+              gain.connect(audioCtx.destination);
+              osc.start(now);
+              osc.stop(now + 0.12);
+            } else if (type === 'chime' || type === 'coin') {
+              const osc = audioCtx.createOscillator();
+              const gain = audioCtx.createGain();
+              osc.type = 'sine';
+              osc.frequency.setValueAtTime(587.33, now); // D5
+              osc.frequency.setValueAtTime(880, now + 0.08); // A5
+              gain.gain.setValueAtTime(0.2, now);
+              gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+              osc.connect(gain);
+              gain.connect(audioCtx.destination);
+              osc.start(now);
+              osc.stop(now + 0.35);
+            } else if (type === 'wrong') {
+              const osc = audioCtx.createOscillator();
+              const gain = audioCtx.createGain();
+              osc.type = 'sawtooth';
+              osc.frequency.setValueAtTime(160, now);
+              osc.frequency.linearRampToValueAtTime(110, now + 0.25);
+              gain.gain.setValueAtTime(0.15, now);
+              gain.gain.linearRampToValueAtTime(0.01, now + 0.25);
+              osc.connect(gain);
+              gain.connect(audioCtx.destination);
+              osc.start(now);
+              osc.stop(now + 0.25);
+            } else if (type === 'thunder') {
+              const osc = audioCtx.createOscillator();
+              const gain = audioCtx.createGain();
+              osc.type = 'triangle';
+              osc.frequency.setValueAtTime(100, now);
+              osc.frequency.exponentialRampToValueAtTime(40, now + 0.5);
+              gain.gain.setValueAtTime(0.3, now);
+              gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+              osc.connect(gain);
+              gain.connect(audioCtx.destination);
+              osc.start(now);
+              osc.stop(now + 0.5);
+            }
+          } catch(e) { console.warn(e); }
+        }
+
+        // --- SPEECH SYNTHESIS (Pronounce Word) ---
+        function speakEnglish(text) {
+          if (!('speechSynthesis' in window)) {
+            showToast('Speech synthesis not supported in this browser.');
+            return;
+          }
+          window.speechSynthesis.cancel();
+          const utter = new SpeechSynthesisUtterance(text);
+          utter.lang = 'en-US';
+          utter.rate = 0.88; // friendly, intelligible speed for 9-year-olds
+          utter.pitch = 1.05;
+          window.speechSynthesis.speak(utter);
+        }
+
+        // --- TOAST NOTIFICATION ---
+        function showToast(msg, icon = '✨') {
+          const toast = document.getElementById('toastMessage');
+          const toastText = document.getElementById('toastText');
+          const toastIcon = document.getElementById('toastIcon');
+          if (!toast) return;
+          toastText.textContent = msg;
+          toastIcon.textContent = icon;
+          toast.style.display = 'flex';
+          setTimeout(() => {
+            toast.style.display = 'none';
+          }, 2400);
+        }
+
+        // --- HERO UI & MENTOR SYSTEM ---
+        function updateHeroUI() {
+          const heroKey = loadSelectedHero();
+          const hero = HEROES[heroKey] || HEROES.spiderman;
+          
+          const iconEl = document.getElementById('currentHeroIcon');
+          const nameEl = document.getElementById('currentHeroName');
+          const mentorAvatar = document.getElementById('mentorAvatarIcon');
+          const mentorName = document.getElementById('mentorBannerName');
+
+          if (iconEl) iconEl.textContent = hero.icon;
+          if (nameEl) nameEl.textContent = hero.name;
+          if (mentorAvatar) mentorAvatar.textContent = hero.icon;
+          if (mentorName) mentorName.textContent = hero.name;
+
+          document.querySelectorAll('.hero-choice-card').forEach(card => {
+            if (card.getAttribute('data-hero') === heroKey) {
+              card.classList.add('active');
+            } else {
+              card.classList.remove('active');
+            }
+          });
+        }
+
+        function triggerHeroPraise() {
+          const heroKey = loadSelectedHero();
+          const hero = HEROES[heroKey] || HEROES.spiderman;
+          const randomPraise = hero.praise[Math.floor(Math.random() * hero.praise.length)];
+          const msgEl = document.getElementById('mentorMessageText');
+          if (msgEl) {
+            msgEl.textContent = `"${randomPraise}"`;
+            msgEl.style.color = '#e83f6f';
+            setTimeout(() => {
+              if (msgEl) msgEl.style.color = '#334155';
+            }, 3000);
+          }
+        }
+
+        function triggerHeroHint() {
+          const heroKey = loadSelectedHero();
+          const hero = HEROES[heroKey] || HEROES.spiderman;
+          const randomHint = hero.hints[Math.floor(Math.random() * hero.hints.length)];
+          const msgEl = document.getElementById('mentorMessageText');
+          if (msgEl) {
+            msgEl.textContent = `💡 Hint from ${hero.name}: "${randomHint}"`;
+          }
+          soundPlay('flip');
+        }
+
+        // --- NAVIGATION TABS ---
+        window.switchTab = function(tabName) {
+          document.querySelectorAll('.tab-btn').forEach(btn => {
+            if (btn.getAttribute('data-tab') === tabName) {
+              btn.classList.add('active');
+            } else {
+              btn.classList.remove('active');
+            }
+          });
+
+          document.querySelectorAll('.app-section').forEach(sec => {
+            if (sec.id === `section-${tabName}`) {
+              sec.classList.add('active');
+            } else {
+              sec.classList.remove('active');
+            }
+          });
+
+          if (tabName === 'matching') {
+            initMatchingGame();
+          } else if (tabName === 'builder') {
+            initSentenceBuilder();
+          } else if (tabName === 'tenses') {
+            initTensesGame();
+          } else if (tabName === 'pronounce') {
+            initPronounceLab();
+          } else if (tabName === 'manager') {
+            renderWordTable();
+          }
+        };
+
+        // --- 2. VOCABULARY FLASHCARDS (QUIZLET STYLE) ---
+        let currentCardIndex = 0;
+        let filteredWords = [];
+
+        function initFlashcards() {
+          const words = loadWords();
+          const filter = document.getElementById('cardCategoryFilter').value;
+          if (filter === 'all') {
+            filteredWords = [...words];
+          } else {
+            filteredWords = words.filter(w => w.category === filter);
+            if (filteredWords.length === 0) filteredWords = [...words];
+          }
+
+          if (currentCardIndex >= filteredWords.length) {
+            currentCardIndex = 0;
+          }
+          renderCurrentCard();
+        }
+
+        function renderCurrentCard() {
+          if (!filteredWords || filteredWords.length === 0) return;
+          const word = filteredWords[currentCardIndex];
+          const inner = document.getElementById('flipCardInner');
+          if (inner) inner.classList.remove('is-flipped');
+
+          document.getElementById('cardCounter').textContent = `Card ${currentCardIndex + 1} / ${filteredWords.length}`;
+          const progressPercent = Math.round(((currentCardIndex + 1) / filteredWords.length) * 100);
+          document.getElementById('deckProgressBar').style.width = `${progressPercent}%`;
+
+          document.getElementById('cardTopicTag').textContent = `🏷️ ${word.category.toUpperCase()}`;
+          document.getElementById('frontWordEn').textContent = word.en;
+          document.getElementById('frontTranscription').textContent = word.transcription || '';
+          document.getElementById('frontExampleEn').textContent = `"${word.exampleEn || ''}"`;
+
+          document.getElementById('backWordRu').textContent = word.ru;
+          document.getElementById('backDetails').textContent = word.mastered ? '⭐ Mastered (Выучено)' : '🌱 Learning (В процессе)';
+          document.getElementById('backExampleRu').textContent = `"${word.exampleRu || ''}"`;
+
+          document.getElementById('prevCardBtn').disabled = (currentCardIndex === 0);
+          document.getElementById('nextCardBtn').disabled = (currentCardIndex === filteredWords.length - 1);
+        }
+
+        function flipCard() {
+          const inner = document.getElementById('flipCardInner');
+          if (!inner) return;
+          inner.classList.toggle('is-flipped');
+          soundPlay('flip');
+          // Speak when flipping to front or clicking
+          const word = filteredWords[currentCardIndex];
+          if (word) speakEnglish(word.en);
+        }
+
+        // --- 3. MATCHING GAME ("СОЕДИНИ ПАРЫ") ---
+        let matchCards = [];
+        let selectedEn = null;
+        let selectedRu = null;
+        let matchedCount = 0;
+        let currentRound = 1;
+        let matchStreak = 0;
+
+        function initMatchingGame() {
+          const words = loadWords();
+          if (words.length < 4) {
+            showToast('Add more words to play matching game!');
+            return;
+          }
+          // Pick 6 random words
+          const shuffled = [...words].sort(() => 0.5 - Math.random());
+          const roundWords = shuffled.slice(0, Math.min(6, shuffled.length));
+
+          matchedCount = 0;
+          selectedEn = null;
+          selectedRu = null;
+          document.getElementById('matchScoreDisplay').textContent = `0 / ${roundWords.length}`;
+          document.getElementById('matchRoundNum').textContent = currentRound;
+          document.getElementById('matchStreakDisplay').textContent = matchStreak;
+
+          // Create tiles for both EN and RU
+          const tiles = [];
+          roundWords.forEach(w => {
+            tiles.push({ id: w.id, text: w.en, lang: 'en', pairId: w.id });
+            tiles.push({ id: w.id + '_ru', text: w.ru, lang: 'ru', pairId: w.id });
+          });
+
+          // Shuffle tiles
+          tiles.sort(() => 0.5 - Math.random());
+          matchCards = tiles;
+
+          const grid = document.getElementById('matchingTilesGrid');
+          grid.innerHTML = '';
+
+          tiles.forEach(tile => {
+            const el = document.createElement('div');
+            el.className = `tile-card lang-${tile.lang}`;
+            el.dataset.id = tile.id;
+            el.dataset.pairId = tile.pairId;
+            el.dataset.lang = tile.lang;
+            el.textContent = tile.text;
+
+            el.addEventListener('click', () => handleTileClick(tile, el));
+            grid.appendChild(el);
+          });
+        }
+
+        function handleTileClick(tile, el) {
+          if (el.classList.contains('matched')) return;
+
+          soundPlay('flip');
+          if (tile.lang === 'en') {
+            speakEnglish(tile.text);
+            if (selectedEn) {
+              selectedEn.el.classList.remove('selected');
+            }
+            selectedEn = { tile, el };
+            el.classList.add('selected');
+          } else {
+            if (selectedRu) {
+              selectedRu.el.classList.remove('selected');
+            }
+            selectedRu = { tile, el };
+            el.classList.add('selected');
+          }
+
+          if (selectedEn && selectedRu) {
+            checkMatch();
+          }
+        }
+
+        function checkMatch() {
+          const isCorrect = (selectedEn.tile.pairId === selectedRu.tile.pairId);
+
+          if (isCorrect) {
+            soundPlay('chime');
+            selectedEn.el.classList.remove('selected');
+            selectedRu.el.classList.remove('selected');
+            selectedEn.el.classList.add('matched');
+            selectedRu.el.classList.add('matched');
+
+            matchedCount++;
+            matchStreak++;
+            addXP(15);
+            document.getElementById('matchScoreDisplay').textContent = `${matchedCount} / ${matchCards.length / 2}`;
+            document.getElementById('matchStreakDisplay').textContent = matchStreak;
+
+            const totalPairs = matchCards.length / 2;
+            if (matchedCount >= totalPairs) {
+              setTimeout(() => {
+                soundPlay('thunder');
+                currentRound++;
+                showToast(`🎉 Round Complete! +50 Bonus XP!`);
+                addXP(50);
+                initMatchingGame();
+              }, 700);
+            }
+          } else {
+            soundPlay('wrong');
+            matchStreak = 0;
+            document.getElementById('matchStreakDisplay').textContent = matchStreak;
+
+            const elEn = selectedEn.el;
+            const elRu = selectedRu.el;
+            elEn.classList.add('wrong');
+            elRu.classList.add('wrong');
+
+            setTimeout(() => {
+              elEn.classList.remove('wrong', 'selected');
+              elRu.classList.remove('wrong', 'selected');
+            }, 500);
+          }
+
+          selectedEn = null;
+          selectedRu = null;
+        }
+
+        // --- 4. DYNAMIC SENTENCE BUILDER (ENDLESS GENERATION) ---
+        const SENTENCE_TEMPLATES = [
+          {
+            prefix: "Spider-Man can",
+            target: "climb",
+            suffix: "very high walls.",
+            ru: "Человек-паук может карабкаться по очень высоким стенам.",
+            options: ["climb", "fly", "swim", "sleep"]
+          },
+          {
+            prefix: "Iron Man wears a high-tech",
+            target: "suit",
+            suffix: "made of gold and titanium.",
+            ru: "Железный Человек носит высокотехнологичный костюм из золота и титана.",
+            options: ["suit", "apple", "pencil", "dog"]
+          },
+          {
+            prefix: "Thor summons lightning with his",
+            target: "hammer",
+            suffix: "in the battle.",
+            ru: "Тор призывает молнию своим молотом в битве.",
+            options: ["hammer", "shield", "sister", "book"]
+          },
+          {
+            prefix: "Captain America holds his vibranium",
+            target: "shield",
+            suffix: "to protect friends.",
+            ru: "Капитан Америка держит свой щит из вибраниума, чтобы защитить друзей.",
+            options: ["shield", "spider", "breakfast", "pencil"]
+          },
+          {
+            prefix: "Peter Parker reads an interesting",
+            target: "book",
+            suffix: "at school.",
+            ru: "Питер Паркер читает интересную книгу в школе.",
+            options: ["book", "suit", "hammer", "thunder"]
+          },
+          {
+            prefix: "I eat a sweet red",
+            target: "apple",
+            suffix: "for a healthy snack.",
+            ru: "Я ем сладкое красное яблоко для здорового перекуса.",
+            options: ["apple", "dog", "sister", "shield"]
+          },
+          {
+            prefix: "The friendly puppy likes to",
+            target: "run",
+            suffix: "in the green park.",
+            ru: "Дружелюбный щенок любит бегать в зеленом парке.",
+            options: ["run", "read", "climb", "write"]
+          },
+          {
+            prefix: "Our clever",
+            target: "teacher",
+            suffix: "helps us learn English words.",
+            ru: "Наш умный учитель помогает нам учить английские слова.",
+            options: ["teacher", "spider", "water", "hammer"]
+          },
+          {
+            prefix: "Drink clean",
+            target: "water",
+            suffix: "every single day.",
+            ru: "Пейте чистую воду каждый божий день.",
+            options: ["water", "pencil", "book", "thunder"]
+          },
+          {
+            prefix: "A brave superhero is a true",
+            target: "friend",
+            suffix: "to everyone.",
+            ru: "Храбрый супергерой — настоящий друг для каждого.",
+            options: ["friend", "apple", "sister", "breakfast"]
+          }
+        ];
+
+        // Procedural generator to create limitless dynamic sentences
+        function generateProceduralSentence() {
+          const subjects = [
+            { en: "The brave hero", ru: "Храбрый герой" },
+            { en: "My little sister", ru: "Моя младшая сестра" },
+            { en: "Iron Man", ru: "Железный Человек" },
+            { en: "The smart student", ru: "Умный ученик" },
+            { en: "Spider-Man", ru: "Человек-паук" }
+          ];
+          const actions = [
+            { en: "likes to eat", target: "apples", ruAction: "любит есть яблоки", options: ["apples", "books", "hammers", "pencils"] },
+            { en: "can jump and", target: "fly", ruAction: "может прыгать и летать", options: ["fly", "sleep", "cry", "sit"] },
+            { en: "always helps a", target: "friend", ruAction: "всегда помогает другу", options: ["friend", "thunder", "water", "suit"] },
+            { en: "draws with a", target: "pencil", ruAction: "рисует карандашом", options: ["pencil", "spider", "breakfast", "shield"] }
+          ];
+
+          const sub = subjects[Math.floor(Math.random() * subjects.length)];
+          const act = actions[Math.floor(Math.random() * actions.length)];
+
+          return {
+            prefix: `${sub.en} ${act.en}`,
+            target: act.target,
+            suffix: "happily.",
+            ru: `${sub.ru} ${act.ru} радостно.`,
+            options: [...act.options].sort(() => 0.5 - Math.random())
+          };
+        }
+
+        let currentSentenceData = null;
+
+        function initSentenceBuilder() {
+          // 50% chance curated template, 50% procedural
+          if (Math.random() > 0.5) {
+            currentSentenceData = SENTENCE_TEMPLATES[Math.floor(Math.random() * SENTENCE_TEMPLATES.length)];
+          } else {
+            currentSentenceData = generateProceduralSentence();
+          }
+
+          document.getElementById('builderRuSentence').textContent = `"${currentSentenceData.ru}"`;
+          const box = document.getElementById('builderSentenceBox');
+          box.innerHTML = `
+            <span>${currentSentenceData.prefix}</span>
+            <span class="blank-target-slot" id="targetBlankSlot">___</span>
+            <span>${currentSentenceData.suffix}</span>
+          `;
+
+          const choicesGrid = document.getElementById('builderChoicesGrid');
+          choicesGrid.innerHTML = '';
+
+          const shuffledOpts = [...currentSentenceData.options].sort(() => 0.5 - Math.random());
+          shuffledOpts.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'choice-chip';
+            btn.textContent = opt;
+            btn.addEventListener('click', () => handleBuilderChoice(opt, btn));
+            choicesGrid.appendChild(btn);
+          });
+
+          document.getElementById('builderNextBtn').style.display = 'none';
+        }
+
+        function handleBuilderChoice(chosenWord, btn) {
+          const blankSlot = document.getElementById('targetBlankSlot');
+          if (!blankSlot || !currentSentenceData) return;
+
+          if (chosenWord.toLowerCase() === currentSentenceData.target.toLowerCase()) {
+            soundPlay('chime');
+            blankSlot.textContent = chosenWord;
+            blankSlot.style.borderColor = '#4ade80';
+            blankSlot.style.color = '#15803d';
+            blankSlot.style.background = '#dcfce7';
+            btn.style.borderColor = '#4ade80';
+            btn.style.background = '#dcfce7';
+
+            addXP(20);
+            speakEnglish(`${currentSentenceData.prefix} ${chosenWord} ${currentSentenceData.suffix}`);
+            document.getElementById('builderNextBtn').style.display = 'inline-flex';
+          } else {
+            soundPlay('wrong');
+            btn.classList.add('wrong');
+            setTimeout(() => {
+              btn.classList.remove('wrong');
+            }, 500);
+          }
+        }
+
+        // --- 5. ENGLISH TENSES TRAINER ---
+        const TENSES_DATA = [
+          // Present Simple
+          {
+            tense: 'present_simple',
+            tenseName: 'Present Simple',
+            clue: 'every day / usually / always',
+            sentence: 'Spider-Man ___ New York every day.',
+            options: ['protects', 'is protecting', 'protected', 'was protecting'],
+            correct: 'protects',
+            explanation: 'Present Simple is used for regular habits with "every day"! Since Spider-Man is "He", we add -s to protect.'
+          },
+          {
+            tense: 'present_simple',
+            tenseName: 'Present Simple',
+            clue: 'always',
+            sentence: 'I always ___ my homework in the afternoon.',
+            options: ['do', 'am doing', 'did', 'was doing'],
+            correct: 'do',
+            explanation: 'With "always" and subject "I", we use the base form: do.'
+          },
+          // Present Continuous
+          {
+            tense: 'present_continuous',
+            tenseName: 'Present Continuous',
+            clue: 'now / right now / Look!',
+            sentence: 'Look! Iron Man ___ across the sky right now.',
+            options: ['is flying', 'flies', 'flew', 'was flying'],
+            correct: 'is flying',
+            explanation: 'Present Continuous is used for actions happening right NOW! Formula: is/am/are + V-ing.'
+          },
+          {
+            tense: 'present_continuous',
+            tenseName: 'Present Continuous',
+            clue: 'at the moment',
+            sentence: 'We ___ English grammar at the moment.',
+            options: ['are studying', 'study', 'studied', 'were studying'],
+            correct: 'are studying',
+            explanation: '"At the moment" shows an active action right now! We use "are studying".'
+          },
+          // Past Simple
+          {
+            tense: 'past_simple',
+            tenseName: 'Past Simple',
+            clue: 'yesterday / last week',
+            sentence: 'Thor ___ Earth from monsters yesterday.',
+            options: ['saved', 'saves', 'is saving', 'was saving'],
+            correct: 'saved',
+            explanation: 'Past Simple is used for finished actions in the past with "yesterday"! Regular verbs end in -ed.'
+          },
+          {
+            tense: 'past_simple',
+            tenseName: 'Past Simple',
+            clue: 'two days ago',
+            sentence: 'Captain America ___ his shield two days ago.',
+            options: ['found', 'finds', 'is finding', 'was finding'],
+            correct: 'found',
+            explanation: 'Past Simple: the past form of "find" is the irregular verb "found"!'
+          },
+          // Past Continuous
+          {
+            tense: 'past_continuous',
+            tenseName: 'Past Continuous',
+            clue: 'yesterday at 5 PM / all evening',
+            sentence: 'Peter ___ comics yesterday at 5 PM.',
+            options: ['was reading', 'read', 'is reading', 'reads'],
+            correct: 'was reading',
+            explanation: 'Past Continuous is for an action in progress at a specific time in the past (yesterday at 5 PM). Formula: was/were + V-ing.'
+          },
+          {
+            tense: 'past_continuous',
+            tenseName: 'Past Continuous',
+            clue: 'while / all morning yesterday',
+            sentence: 'They ___ football all morning yesterday.',
+            options: ['were playing', 'played', 'are playing', 'play'],
+            correct: 'were playing',
+            explanation: 'With "They" and a continuous duration in the past, we use "were playing"!'
+          }
+        ];
+
+        let currentTenseQ = null;
+
+        function getActiveTenses() {
+          const tenses = [];
+          if (document.getElementById('tenseCheckPS').checked) tenses.push('present_simple');
+          if (document.getElementById('tenseCheckPC').checked) tenses.push('present_continuous');
+          if (document.getElementById('tenseCheckPastS').checked) tenses.push('past_simple');
+          if (document.getElementById('tenseCheckPastC').checked) tenses.push('past_continuous');
+          return tenses;
+        }
+
+        function initTensesGame() {
+          const active = getActiveTenses();
+          if (active.length === 0) {
+            document.getElementById('tenseCheckPS').checked = true;
+            active.push('present_simple');
+          }
+
+          const pool = TENSES_DATA.filter(item => active.includes(item.tense));
+          currentTenseQ = pool[Math.floor(Math.random() * pool.length)];
+
+          // Update Clue box
+          document.getElementById('ruleBadgeName').textContent = currentTenseQ.tenseName;
+          document.getElementById('ruleTextContent').innerHTML = `
+            Time Indicator: <span class="clue-indicator">${currentTenseQ.clue}</span><br>
+            Pay attention to when this superhero action occurs!
+          `;
+
+          const qSentence = document.getElementById('tenseQuestionSentence');
+          qSentence.innerHTML = currentTenseQ.sentence.replace('___', '<span class="blank-target-slot" id="tenseBlankTarget">___</span>');
+
+          const optionsGrid = document.getElementById('tenseAnswerOptions');
+          optionsGrid.innerHTML = '';
+          const explBox = document.getElementById('tenseExplanationBox');
+          explBox.style.display = 'none';
+
+          const shuffled = [...currentTenseQ.options].sort(() => 0.5 - Math.random());
+          shuffled.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'choice-chip';
+            btn.textContent = opt;
+            btn.addEventListener('click', () => handleTenseAnswer(opt, btn));
+            optionsGrid.appendChild(btn);
+          });
+
+          document.getElementById('tenseNextQuestionBtn').style.display = 'none';
+        }
+
+        function handleTenseAnswer(chosenOpt, btn) {
+          const blank = document.getElementById('tenseBlankTarget');
+          if (!blank || !currentTenseQ) return;
+
+          if (chosenOpt === currentTenseQ.correct) {
+            soundPlay('chime');
+            blank.textContent = chosenOpt;
+            blank.style.borderColor = '#4ade80';
+            blank.style.color = '#15803d';
+            blank.style.background = '#dcfce7';
+
+            btn.style.borderColor = '#4ade80';
+            btn.style.background = '#dcfce7';
+
+            addXP(25);
+            const fullText = currentTenseQ.sentence.replace('___', chosenOpt);
+            speakEnglish(fullText);
+
+            const explBox = document.getElementById('tenseExplanationBox');
+            explBox.textContent = `🎯 ${currentTenseQ.explanation}`;
+            explBox.style.display = 'block';
+
+            document.getElementById('tenseNextQuestionBtn').style.display = 'inline-flex';
+          } else {
+            soundPlay('wrong');
+            btn.classList.add('wrong');
+            setTimeout(() => {
+              btn.classList.remove('wrong');
+            }, 500);
+          }
+        }
+
+        // --- 6. PRONUNCIATION LAB (SPEECH RECOGNITION) ---
+        let pronounceIndex = 0;
+        let recognition = null;
+        let isListening = false;
+
+        function initPronounceLab() {
+          const words = loadWords();
+          if (pronounceIndex >= words.length) pronounceIndex = 0;
+          const word = words[pronounceIndex];
+
+          document.getElementById('pronounceTargetEn').textContent = word.en;
+          document.getElementById('pronounceTargetRu').textContent = word.ru;
+          document.getElementById('speechResultBox').textContent = 'Ready to listen... Press the pink microphone button!';
+          document.getElementById('speechResultBox').style.borderColor = '#e2e8f0';
+          document.getElementById('speechResultBox').style.background = '#f8fafc';
+        }
+
+        function setupSpeechRecognition() {
+          const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+          if (!SpeechRec) {
+            return null;
+          }
+          const rec = new SpeechRec();
+          rec.lang = 'en-US';
+          rec.continuous = false;
+          rec.interimResults = false;
+
+          rec.onstart = () => {
+            isListening = true;
+            const micBtn = document.getElementById('startMicBtn');
+            const status = document.getElementById('micStatusText');
+            if (micBtn) micBtn.classList.add('listening');
+            if (status) status.textContent = 'Listening... Speak now!';
+          };
+
+          rec.onresult = (event) => {
+            const transcript = event.results[0][0].transcript.toLowerCase().trim();
+            handlePronounceResult(transcript);
+          };
+
+          rec.onerror = (event) => {
+            console.warn('SpeechRec error:', event.error);
+            const status = document.getElementById('micStatusText');
+            if (status) status.textContent = `Microphone notice: ${event.error}. Try clicking again!`;
+            stopListening();
+          };
+
+          rec.onend = () => {
+            stopListening();
+          };
+
+          return rec;
+        }
+
+        function toggleMic() {
+          if (!recognition) {
+            recognition = setupSpeechRecognition();
+          }
+
+          if (!recognition) {
+            showToast('Web Speech API is not supported in this browser. Try Google Chrome!', '⚠️');
+            return;
+          }
+
+          if (isListening) {
+            try { recognition.stop(); } catch(e) {}
+            stopListening();
+          } else {
+            try {
+              recognition.start();
+            } catch(e) {
+              console.warn(e);
+              recognition.stop();
+              setTimeout(() => {
+                try { recognition.start(); } catch(err) { console.warn(err); }
+              }, 200);
+            }
+          }
+        }
+
+        function stopListening() {
+          isListening = false;
+          const micBtn = document.getElementById('startMicBtn');
+          const status = document.getElementById('micStatusText');
+          if (micBtn) micBtn.classList.remove('listening');
+          if (status) status.textContent = 'Click microphone and say the word aloud!';
+        }
+
+        function handlePronounceResult(transcript) {
+          const words = loadWords();
+          const target = words[pronounceIndex].en.toLowerCase().trim();
+          const resultBox = document.getElementById('speechResultBox');
+
+          // Clean comparison
+          const cleanTranscript = transcript.replace(/[^\w\s]/gi, '');
+          const cleanTarget = target.replace(/[^\w\s]/gi, '');
+
+          if (cleanTranscript === cleanTarget || cleanTranscript.includes(cleanTarget) || cleanTarget.includes(cleanTranscript)) {
+            soundPlay('chime');
+            resultBox.innerHTML = `🌟 <b>Superb!</b> You said: "<i>${transcript}</i>" — 100% Match!`;
+            resultBox.style.background = '#dcfce7';
+            resultBox.style.borderColor = '#4ade80';
+            resultBox.style.color = '#15803d';
+            addXP(30);
+          } else {
+            soundPlay('wrong');
+            resultBox.innerHTML = `👍 <b>Good attempt!</b> Heard: "<i>${transcript}</i>". Target: "<b>${target}</b>". Listen to the sample and try once more!`;
+            resultBox.style.background = '#fee2e2';
+            resultBox.style.borderColor = '#fca5a5';
+            resultBox.style.color = '#b91c1c';
+          }
+        }
+
+        // --- 7. WORD MANAGER & PARSER ---
+        function parseAndAddWords(rawText) {
+          if (!rawText || !rawText.trim()) return 0;
+          const lines = rawText.split('\n');
+          const words = loadWords();
+          let addedCount = 0;
+
+          lines.forEach(line => {
+            const trimmed = line.trim();
+            if (!trimmed) return;
+
+            // Split by -, :, tab, or comma
+            let parts = [];
+            if (trimmed.includes(' - ')) parts = trimmed.split(' - ');
+            else if (trimmed.includes('-')) parts = trimmed.split('-');
+            else if (trimmed.includes(':')) parts = trimmed.split(':');
+            else if (trimmed.includes('\t')) parts = trimmed.split('\t');
+            else if (trimmed.includes(',')) parts = trimmed.split(',');
+
+            if (parts.length >= 2) {
+              const en = parts[0].trim();
+              const ru = parts[1].trim();
+              if (en && ru) {
+                words.push({
+                  id: 'w_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+                  en: en.charAt(0).toUpperCase() + en.slice(1),
+                  ru: ru.charAt(0).toUpperCase() + ru.slice(1),
+                  transcription: '',
+                  category: 'custom',
+                  exampleEn: `I like this ${en}.`,
+                  exampleRu: `Мне нравится этот ${ru}.`,
+                  mastered: false
+                });
+                addedCount++;
+              }
+            }
+          });
+
+          if (addedCount > 0) {
+            saveWords(words);
+            renderWordTable();
+            initFlashcards();
+            showToast(`Added ${addedCount} words successfully! ⭐`);
+          }
+          return addedCount;
+        }
+
+        function renderWordTable() {
+          const words = loadWords();
+          const tbody = document.getElementById('wordListTableBody');
+          const countEl = document.getElementById('totalWordCount');
+          if (countEl) countEl.textContent = words.length;
+          if (!tbody) return;
+
+          tbody.innerHTML = '';
+          words.forEach((w, idx) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td><b>${w.en}</b></td>
+              <td>${w.ru}</td>
+              <td><span style="color: #64748b; font-size: 13px;">${w.category}</span></td>
+              <td>${w.mastered ? '⭐ Mastered' : '🌱 Practicing'}</td>
+              <td>
+                <button class="btn-del-sm" data-id="${w.id}" title="Delete word">🗑️</button>
+              </td>
+            `;
+            tbody.appendChild(tr);
+          });
+
+          // Delete listeners
+          tbody.querySelectorAll('.btn-del-sm').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const id = btn.getAttribute('data-id');
+              deleteWord(id);
+            });
+          });
+        }
+
+        function deleteWord(id) {
+          let words = loadWords();
+          words = words.filter(w => w.id !== id);
+          saveWords(words);
+          renderWordTable();
+          initFlashcards();
+          showToast('Word removed.');
+        }
+
+        // --- 8. FILE EXPORT (STANDALONE HTML EXPORT) ---
+        function exportCurrentHtmlFile() {
+          const htmlContent = document.documentElement.outerHTML;
+          const blob = new Blob([htmlContent], { type: 'text/html' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'superhero-english-quest.html';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          showToast('Downloaded standalone index.html!');
+        }
+
+        // --- 9. EVENT LISTENERS SETUP ---
+        document.addEventListener('DOMContentLoaded', () => {
+          // Render initial UI
+          renderXP();
+          updateHeroUI();
+          initFlashcards();
+
+          // Tabs
+          document.querySelectorAll('.nav-tabs .tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const tab = btn.getAttribute('data-tab');
+              window.switchTab(tab);
+            });
+          });
+
+          // Hero selector modal
+          const heroModal = document.getElementById('heroModal');
+          document.getElementById('heroBadgeBtn').addEventListener('click', () => {
+            heroModal.classList.add('open');
+          });
+          document.getElementById('mentorAvatarIcon').addEventListener('click', () => {
+            heroModal.classList.add('open');
+          });
+          document.getElementById('closeHeroModalBtn').addEventListener('click', () => {
+            heroModal.classList.remove('open');
+          });
+
+          document.querySelectorAll('.hero-choice-card').forEach(card => {
+            card.addEventListener('click', () => {
+              const heroKey = card.getAttribute('data-hero');
+              setSelectedHero(heroKey);
+              heroModal.classList.remove('open');
+              soundPlay('chime');
+              showToast(`Mentor switched to ${HEROES[heroKey].name}!`);
+            });
+          });
+
+          // Hero Hint Button
+          document.getElementById('heroHintBtn').addEventListener('click', () => {
+            triggerHeroHint();
+          });
+
+          // Sound Toggle
+          const soundBtn = document.getElementById('soundToggleBtn');
+          soundBtn.addEventListener('click', () => {
+            soundEnabled = !soundEnabled;
+            soundBtn.textContent = soundEnabled ? '🔊' : '🔇';
+            showToast(soundEnabled ? 'Sound Enabled' : 'Sound Muted');
+          });
+
+          // Export Button
+          document.getElementById('exportBtn').addEventListener('click', () => {
+            exportCurrentHtmlFile();
+          });
+
+          // Flashcard Box Flip
+          document.getElementById('flipCardBox').addEventListener('click', (e) => {
+            // Avoid double flipping when speaker is clicked
+            if (e.target.closest('#playAudioBtn')) return;
+            flipCard();
+          });
+
+          // Audio button
+          document.getElementById('playAudioBtn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (filteredWords[currentCardIndex]) {
+              speakEnglish(filteredWords[currentCardIndex].en);
+            }
+          });
+
+          // Carousel Arrows
+          document.getElementById('prevCardBtn').addEventListener('click', () => {
+            if (currentCardIndex > 0) {
+              currentCardIndex--;
+              renderCurrentCard();
+              soundPlay('flip');
+            }
+          });
+          document.getElementById('nextCardBtn').addEventListener('click', () => {
+            if (currentCardIndex < filteredWords.length - 1) {
+              currentCardIndex++;
+              renderCurrentCard();
+              soundPlay('flip');
+            }
+          });
+
+          // Know / Repeat buttons
+          document.getElementById('cardKnowBtn').addEventListener('click', () => {
+            if (filteredWords[currentCardIndex]) {
+              filteredWords[currentCardIndex].mastered = true;
+              const allWords = loadWords();
+              const idx = allWords.findIndex(w => w.id === filteredWords[currentCardIndex].id);
+              if (idx !== -1) {
+                allWords[idx].mastered = true;
+                saveWords(allWords);
+              }
+              addXP(10);
+              if (currentCardIndex < filteredWords.length - 1) {
+                currentCardIndex++;
+                renderCurrentCard();
+              } else {
+                showToast('🎉 All cards reviewed!');
+              }
+            }
+          });
+
+          document.getElementById('cardRepeatBtn').addEventListener('click', () => {
+            showToast('Keep practicing! You will master it soon!');
+            soundPlay('flip');
+            if (currentCardIndex < filteredWords.length - 1) {
+              currentCardIndex++;
+              renderCurrentCard();
+            }
+          });
+
+          document.getElementById('shuffleDeckBtn').addEventListener('click', () => {
+            filteredWords.sort(() => 0.5 - Math.random());
+            currentCardIndex = 0;
+            renderCurrentCard();
+            soundPlay('flip');
+            showToast('Cards shuffled! 🔀');
+          });
+
+          document.getElementById('resetProgressBtn').addEventListener('click', () => {
+            const words = loadWords();
+            words.forEach(w => w.mastered = false);
+            saveWords(words);
+            initFlashcards();
+            showToast('Mastery reset. Ready for fresh practice!');
+          });
+
+          document.getElementById('cardCategoryFilter').addEventListener('change', () => {
+            initFlashcards();
+          });
+
+          // Keyboard navigation for flashcards
+          window.addEventListener('keydown', (e) => {
+            const cardSec = document.getElementById('section-cards');
+            if (cardSec.classList.contains('active')) {
+              if (e.code === 'Space') {
+                e.preventDefault();
+                flipCard();
+              } else if (e.code === 'ArrowRight') {
+                document.getElementById('nextCardBtn').click();
+              } else if (e.code === 'ArrowLeft') {
+                document.getElementById('prevCardBtn').click();
+              }
+            }
+          });
+
+          // Matching game restart
+          document.getElementById('restartMatchRoundBtn').addEventListener('click', () => {
+            initMatchingGame();
+          });
+
+          // Sentence builder next
+          document.getElementById('builderNextBtn').addEventListener('click', () => {
+            initSentenceBuilder();
+          });
+
+          // Tenses Trainer presets & toggles
+          const tenseToggles = [
+            document.getElementById('tenseCheckPS'),
+            document.getElementById('tenseCheckPC'),
+            document.getElementById('tenseCheckPastS'),
+            document.getElementById('tenseCheckPastC')
+          ];
+          tenseToggles.forEach(t => {
+            t.addEventListener('change', () => {
+              initTensesGame();
+            });
+          });
+
+          document.getElementById('presetStrictPS').addEventListener('click', () => {
+            document.getElementById('tenseCheckPS').checked = true;
+            document.getElementById('tenseCheckPC').checked = false;
+            document.getElementById('tenseCheckPastS').checked = false;
+            document.getElementById('tenseCheckPastC').checked = false;
+            initTensesGame();
+          });
+
+          document.getElementById('presetSimpleVsCont').addEventListener('click', () => {
+            document.getElementById('tenseCheckPS').checked = true;
+            document.getElementById('tenseCheckPC').checked = true;
+            document.getElementById('tenseCheckPastS').checked = false;
+            document.getElementById('tenseCheckPastC').checked = false;
+            initTensesGame();
+          });
+
+          document.getElementById('presetPastVsPastCont').addEventListener('click', () => {
+            document.getElementById('tenseCheckPS').checked = false;
+            document.getElementById('tenseCheckPC').checked = false;
+            document.getElementById('tenseCheckPastS').checked = true;
+            document.getElementById('tenseCheckPastC').checked = true;
+            initTensesGame();
+          });
+
+          document.getElementById('presetAllFour').addEventListener('click', () => {
+            document.getElementById('tenseCheckPS').checked = true;
+            document.getElementById('tenseCheckPC').checked = true;
+            document.getElementById('tenseCheckPastS').checked = true;
+            document.getElementById('tenseCheckPastC').checked = true;
+            initTensesGame();
+          });
+
+          document.getElementById('tenseNextQuestionBtn').addEventListener('click', () => {
+            initTensesGame();
+          });
+
+          // Pronunciation Lab
+          document.getElementById('startMicBtn').addEventListener('click', () => {
+            toggleMic();
+          });
+
+          document.getElementById('pronounceListenSampleBtn').addEventListener('click', () => {
+            const words = loadWords();
+            if (words[pronounceIndex]) {
+              speakEnglish(words[pronounceIndex].en);
+            }
+          });
+
+          document.getElementById('nextPronounceWordBtn').addEventListener('click', () => {
+            const words = loadWords();
+            pronounceIndex = (pronounceIndex + 1) % words.length;
+            initPronounceLab();
+          });
+
+          document.getElementById('prevPronounceWordBtn').addEventListener('click', () => {
+            const words = loadWords();
+            pronounceIndex = (pronounceIndex - 1 + words.length) % words.length;
+            initPronounceLab();
+          });
+
+          // Word Manager - Single Add
+          document.getElementById('addWordSubmitBtn').addEventListener('click', () => {
+            const en = document.getElementById('newWordEn').value.trim();
+            const ru = document.getElementById('newWordRu').value.trim();
+            const ex = document.getElementById('newWordExample').value.trim();
+            const cat = document.getElementById('newWordCategory').value;
+
+            if (!en || !ru) {
+              showToast('Please enter both English and Russian words!', '⚠️');
+              return;
+            }
+
+            const words = loadWords();
+            words.unshift({
+              id: 'w_' + Date.now(),
+              en: en.charAt(0).toUpperCase() + en.slice(1),
+              ru: ru.charAt(0).toUpperCase() + ru.slice(1),
+              transcription: '',
+              category: cat,
+              exampleEn: ex || `I know the word ${en}.`,
+              exampleRu: ex ? '' : `Я знаю слово ${ru}.`,
+              mastered: false
+            });
+
+            saveWords(words);
+            renderWordTable();
+            initFlashcards();
+            showToast(`Word "${en}" added! ⭐`);
+
+            document.getElementById('newWordEn').value = '';
+            document.getElementById('newWordRu').value = '';
+            document.getElementById('newWordExample').value = '';
+          });
+
+          // Word Manager - Batch Paste
+          document.getElementById('parseRawWordsBtn').addEventListener('click', () => {
+            const raw = document.getElementById('rawWordPasteArea').value;
+            const count = parseAndAddWords(raw);
+            if (count > 0) {
+              document.getElementById('rawWordPasteArea').value = '';
+            } else {
+              showToast('No valid word pairs found. Use format: word - перевод', '⚠️');
+            }
+          });
+
+          // File upload
+          document.getElementById('wordListFileInput').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              const text = event.target.result;
+              parseAndAddWords(text);
+            };
+            reader.readAsText(file);
+          });
+
+          // Export JSON
+          document.getElementById('exportWordsJsonBtn').addEventListener('click', () => {
+            const words = loadWords();
+            const jsonStr = JSON.stringify(words, null, 2);
+            const blob = new Blob([jsonStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'superhero-words.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('Exported superhero-words.json!');
+          });
+
+          // Reset to default words
+          document.getElementById('restoreDefaultWordsBtn').addEventListener('click', () => {
+            if (confirm('Reset vocabulary back to default 20 superhero words?')) {
+              saveWords(DEFAULT_WORDS);
+              renderWordTable();
+              initFlashcards();
+              showToast('Reset to default word set!');
+            }
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
